@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppGateway } from './app/app.gateway';
-import { ChatGateway } from './chat/chat.gateway';
+import { SocketGateway } from './socket/socket.gateway';
+import { QueueModule } from './queue/queue.module';
 
 @Module({
-  imports: [],
-  providers: [AppGateway, ChatGateway],
+  imports: [QueueModule],
+  providers: [AppGateway, SocketGateway],
 })
 export class AppModule {}
