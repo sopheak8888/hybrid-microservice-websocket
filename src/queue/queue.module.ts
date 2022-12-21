@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { QueueController } from './queue.controller';
 import { QueueService } from './queue.service';
-import { SocketGateway } from '../socket/socket.gateway';
+import { SathapanaQmsGateway } from '../socket/sathapana-qms.gateway';
 
 @Module({
   controllers: [QueueController],
-  providers: [QueueService, SocketGateway],
+  providers: [QueueService, SathapanaQmsGateway],
 })
 export class QueueModule {}
