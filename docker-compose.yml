@@ -1,10 +1,34 @@
 version: '3.7'
 services:
+  app:
+    container_name: microservice-websocket
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '${APP_PORT}:${APP_PORT}'
+    environment:
+      APP_PORT: '${APP_PORT}'
+      REDIS_HOST: '${REDIS_HOST}'
+      REDIS_PORT: '${REDIS_PORT}'
+    networks:
+      - hybrid-microservice-websocket-network
+    depends_on:
+      - redis
   redis:
     image: redis:5.0.7
     container_name: microservice-redis
     restart: always
     ports:
-      - 6380:6379
+      - '${REDIS_PORT}:${REDIS_PORT}'
     volumes:
-      - ./data:/data
+    - 'redis:/data'
+    networks:
+      - hybrid-microservice-websocket-network
+networks:
+  hybrid-microservice-websocket-network:
+    driver: bridge
+volumes:
+  redis:
+    driver: local
